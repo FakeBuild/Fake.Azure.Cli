@@ -7,13 +7,13 @@ open Fake.IO.Globbing.Operators
 open BlackFox.Fake
 
 let clean = BuildTask.create "Clean" [] {
-    !! "src/**/bin"
-    ++ "src/**/obj"
+    !! "**/bin"
+    ++ "**/obj"
     |> Shell.cleanDirs 
 }
 
 let build = BuildTask.create "Build" [clean.IfNeeded] {
-    !! "src/**/*.*proj"
+    !! "**/*.*proj"
     |> Seq.iter (DotNet.build id)
 }
 
